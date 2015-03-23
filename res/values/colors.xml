@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="normal_title_bottom_line_color">#1b8656</color>
+    <color name="normal_title_font_color">#93d8c7</color>
+    <color name="normal_title_font_white">#ffffff</color>
+    <color name="normal_split_color">#bdc3c7</color>
+    <color name="normal_green_color">#22a86c</color>
+    <color name="normal_black_text_color">#4e4e4e</color>
+    <color name="create_channel_line_default_color">#5b6a78</color>
+    <color name="normal_back_backgroud_pulltorefresh">#f7f7f7</color>
+    
+    
+</resources>

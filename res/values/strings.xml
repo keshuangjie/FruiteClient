@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">FruitClient</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- 下拉刷新 -->
+    <string name="common_list_footer_text">正在努力加载中</string>
+    <string name="common_list_footer_text_more">点击更多</string>
+    <string name="refresh_pull_label">下拉可以刷新</string>
+    <string name="no_more_item">没有更多</string>
+    <string name="refresh_refresh_label">加载中&#8230;</string>
+    <string name="refresh_release_label">松开可以刷新</string>
+    <string name="refresh_last_refresh">最后更新</string>
+
+    <!-- 下拉刷新界面 -->
+    <string name="lib_story_xlistview_header_hint_normal">往下拉更新数据...</string>
+    <string name="lib_story_xlistview_header_hint_ready">放开更新数据...</string>
+    <string name="lib_story_xlistview_header_hint_loading">正在加载...</string>
+    <string name="lib_story_xlistview_header_last_time">上一次更新：</string>
+    <string name="lib_story_xlistview_footer_hint_normal">查看更多</string>
+    <string name="lib_story_xlistview_footer_hint_ready">松开载入更多</string>
+
+    <!-- 上滑加载更多 -->
+    <string name="lib_story_load_message_fail">加载数据失败，请点击重试</string>
+    <string name="lib_story_load_message_more">更  多</string>
+    <string name="lib_story_load_data">加载数据</string>
+    <string name="lib_story_load_no_data">暂无数据,点击刷新</string>
+
+</resources>
