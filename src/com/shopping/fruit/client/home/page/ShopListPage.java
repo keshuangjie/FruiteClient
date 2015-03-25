@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.shopping.fruit.client.base.AbsAdapter;
 import com.shopping.fruit.client.base.MyListFragment;
 import com.shopping.fruit.client.R;
+import com.shopping.fruit.client.common.CommonApi;
 import com.shopping.fruit.client.entity.Shop;
 import com.shopping.fruit.client.home.adapter.ShopListAdapter;
 
@@ -20,8 +21,6 @@ import java.util.ArrayList;
  * @date 2015-3-18 11:52
  */
 public class ShopListPage extends MyListFragment<Shop> {
-
-    private final String url = "http://123.57.134.241/getSalersNearby?longitude=116.24&latitude=39.95&index=0&limit=10";
 
     protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.page_shop_list, container,
@@ -41,6 +40,6 @@ public class ShopListPage extends MyListFragment<Shop> {
 
     @Override
     protected String buildUrl() {
-        return url;
+        return CommonApi.NEARBY_SALER_LIST + "?longitude=116.24&latitude=39.95&index=0&limit=10";
     }
 }

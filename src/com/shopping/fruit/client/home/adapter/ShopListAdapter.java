@@ -29,8 +29,14 @@ public class ShopListAdapter extends AbsAdapter<Shop> {
 
         Shop item = mContent.get(position);
         if (item != null) {
-            TextView name = ViewHolder.get(convertView, R.id.name);
-            name.setText(item.name);
+            TextView tv_name = ViewHolder.get(convertView, R.id.tv_name);
+            TextView tv_description = ViewHolder.get(convertView, R.id.tv_description);
+            TextView tv_distance = ViewHolder.get(convertView, R.id.tv_distance);
+            TextView tv_category = ViewHolder.get(convertView, R.id.tv_category);
+            tv_name.setText(item.name);
+            tv_description.setText(item.description);
+            tv_distance.setText(item.distance + "");
+            tv_category.setText(item.category);
         }
 
         return convertView;

@@ -9,6 +9,7 @@ import com.shopping.fruit.client.base.BaseActivity;
 import com.shopping.fruit.client.base.BaseFragment;
 import com.shopping.fruit.client.R;
 import com.shopping.fruit.client.home.page.ShopListPage;
+import com.shopping.fruit.client.shop.ShopDetailPage;
 import com.shopping.fruit.client.widget.TabGroupView;
 
 import java.util.Vector;
@@ -29,12 +30,15 @@ public class MainActivity extends BaseActivity {
         BaseFragment fragment;
         Bundle bundle;
 
-        for(int i=0; i<3; i++){
+        for(int i=0; i<2; i++){
             fragment = new ShopListPage();
             bundle = new Bundle();
             fragment.setArguments(bundle);
             mFragments.add(fragment);
         }
+
+        fragment = new ShopDetailPage();
+        mFragments.add(fragment);
 
         mFragmentManager = getSupportFragmentManager();
 
