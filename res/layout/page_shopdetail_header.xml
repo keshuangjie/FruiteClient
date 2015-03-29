@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#999999"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/im_head"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip"
+        android:src="@drawable/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/im_head"
+        android:layout_alignTop="@id/im_head"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_marginBottom="10dip"
+        android:textSize="@dimen/text_font_size_normal"
+        android:text="老王"/>
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/im_head"
+        android:layout_below="@id/tv_name"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:textSize="@dimen/text_font_size_normal"
+        android:text="我的水果特别甜"/>
+
+</RelativeLayout>

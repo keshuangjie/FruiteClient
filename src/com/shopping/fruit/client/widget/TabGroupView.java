@@ -205,6 +205,9 @@ public class TabGroupView extends LinearLayout implements OnClickListener {
 		BaseFragment to = mFragmentList.get(toView.getId());
 		if (mCurrentFragment != to) {
 			mCurrentFragment = to;
+            if (mTabChangeListener != null) {
+                mTabChangeListener.onChange(toView.getId());
+            }
 			FragmentTransaction transaction = mFragmentManager
 					.beginTransaction();
 			if(from != null){
@@ -217,4 +220,14 @@ public class TabGroupView extends LinearLayout implements OnClickListener {
 			}
 		}
 	}
+
+    private TabChangeListener mTabChangeListener;
+
+    public void setTabChangeListener(TabChangeListener listener){
+        this.mTabChangeListener = listener;
+    }
+
+    public interface TabChangeListener{
+        public void onChange(int position);
+    }
 }

@@ -18,20 +18,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/im_head"
         android:singleLine="true"
-        android:layout_alignParentTop="true"
         android:textSize="@dimen/text_font_size_small"
         android:text="10$/斤"/>
-
-    <TextView
-        android:id="@+id/tv_totalSold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:singleLine="true"
-        android:textSize="@dimen/text_font_size_small"
-        android:text="已售出1000份"/>
 
     <TextView
         android:id="@+id/tv_name"
@@ -41,19 +31,41 @@
         android:layout_toLeftOf="@id/tv_price"
         android:singleLine="true"
         android:ellipsize="end"
-        android:layout_marginBottom="10dip"
+        android:layout_marginBottom="3dip"
         android:textSize="@dimen/text_font_size_normal"
         android:text="苹果"/>
+
+    <TextView
+        android:id="@+id/tv_totalSold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/im_head"
+        android:layout_below="@id/tv_name"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_marginBottom="3dip"
+        android:textSize="@dimen/text_font_size_small"
+        android:text="已售出1000份"/>
 
     <TextView
         android:id="@+id/tv_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/im_head"
-        android:layout_below="@id/tv_name"
+        android:layout_below="@id/tv_totalSold"
+        android:layout_toLeftOf="@id/tv_price"
+        android:layout_marginRight="10dp"
         android:maxLines="3"
         android:ellipsize="end"
         android:textSize="@dimen/text_font_size_normal"
-        android:text="国外进口的苹果，又香又甜又脆"/>
+        android:text="国外进口的苹果，又香又甜又脆国外进口的苹果，又香又甜又脆"/>
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dip"
+        layout="@layout/item_plus_widget"/>
 
 </RelativeLayout>

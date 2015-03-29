@@ -165,6 +165,7 @@ public abstract class MyListFragment<T> extends BaseFragment implements
 		mAdapter = initAdapter();
 		mListView.setAdapter(mAdapter);
 		mListView.setOnScrollListener(this);
+        mListView.setOnItemClickListener(this);
         if (mListView instanceof XListView) {
             XListView listView = (XListView) mListView;
             XListViewHeader headerView = (XListViewHeader) listView
