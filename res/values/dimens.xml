@@ -2,6 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="view_vertical_padding">8dp</dimen>
 
     <!-- 字体大小 dip -->
     <dimen name="text_font_size_smallest">12dip</dimen>
@@ -9,4 +10,12 @@
     <dimen name="text_font_size_normal">16dip</dimen>
     <dimen name="text_font_size_middle">18dip</dimen>
     <dimen name="text_font_size_big">20dip</dimen>
+
+    <!-- 添加地址 -->
+    <dimen name="custom_item_height_contact">47.0dip</dimen>
+    <dimen name="custom_item_height">45.0dip</dimen>
+    <dimen name="custom_item_topgap">10.0dip</dimen>
+    <dimen name="custom_item_gap">8.0dip</dimen>
+    <dimen name="address_add_label_padding">8.0dip</dimen>
+    <dimen name="address_add_label_width">50.0dip</dimen>
 </resources>

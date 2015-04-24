@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_address_item"
+    android:background="@drawable/global_border_topbottom"
+    android:paddingLeft="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/view_vertical_padding"
+    android:paddingBottom="@dimen/view_vertical_padding">
+
+    <ImageView
+        android:id="@+id/iv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/address_edit_red"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_alignParentLeft="true"
+        android:textSize="@dimen/text_font_size_normal"
+        android:text="老王"/>
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_name"
+        android:layout_toLeftOf="@id/iv_edit"
+        android:layout_marginLeft="8dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="@dimen/text_font_size_normal"
+        android:text="18600891273"/>
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_toLeftOf="@id/iv_edit"
+        android:layout_alignLeft="@id/tv_name"
+        android:layout_marginTop="6dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="@dimen/text_font_size_normal"
+        android:text="北京市海淀区中关村3Wcoffeesdddddddddddd dddddddddddddddddddddddddddddddddddddddddd"/>
+
+</RelativeLayout>

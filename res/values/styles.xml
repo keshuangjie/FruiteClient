@@ -1,8 +1,57 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--</style>-->
+
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <!--<item name="android:actionBarDivider">@null</item>-->
+        <item name="android:actionBarTabTextStyle">@style/MyActionBarTabText</item>
+        <!--         <item name="android:actionBarTabStyle">@style/MyActionBarTabs</item> -->
+        <item name="android:actionBarTabBarStyle">@style/MyActionBarTabBars</item>
+        <item name="android:actionMenuTextColor">@color/custom_white</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="actionBarDivider">@null</item>
+        <item name="actionBarTabTextStyle">@style/MyActionBarTabText</item>
+        <!--         <item name="actionBarTabStyle">@style/MyActionBarTabs</item> -->
+        <item name="actionBarTabBarStyle">@style/MyActionBarTabBars</item>
+        <item name="actionMenuTextColor">@color/custom_white</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">#00d5b9</item>
+        <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
+        <!--<item name="android:backgroundStacked">@android:color/holo_green_dark</item>-->
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/title_bar</item>
+        <item name="titleTextStyle">@style/MyActionBarTitleText</item>
+        <!--<item name="backgroundStacked">@android:color/holo_green_dark</item>-->
+    </style>
+
+    <!-- ActionBar title text -->
+    <style name="MyActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/custom_white</item>
+    </style>
+
+    <!-- ActionBar tabs text -->
+    <style name="MyActionBarTabText" parent="@style/Widget.AppCompat.ActionBar.TabText">
+        <item name="android:textColor">@color/custom_white</item>
+    </style>
+
+    <style name="MyActionBarTabs" parent="@style/Widget.AppCompat.ActionBar.TabView">
+        <!--<item name="android:background">@drawable/tab_indicator_ab_example</item>-->
+    </style>
+
+    <style name="MyActionBarTabBars" parent="@style/Widget.AppCompat.ActionBar.TabBar">
+
+        <item name="android:showDividers">none</item>
+
     </style>
 
     <!-- common ProgressDialog -->
@@ -39,7 +88,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:divider">#c0c0c0</item>
-        <item name="android:dividerHeight">.6dp</item>
+        <item name="android:dividerHeight">0.6dp</item>
         <item name="android:footerDividersEnabled">false</item>
         <item name="android:fadingEdge">none</item>
         <item name="android:cacheColorHint">#00000000</item>
@@ -49,6 +98,12 @@
         <item name="android:scrollingCache">false</item>
         <item name="android:overScrollMode">never</item>
         <item name="android:smoothScrollbar">false</item>
+    </style>
+
+    <style name="list_divider">
+        <item name="android:background">@color/list_divider</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1.0px</item>
     </style>
 
 </resources>

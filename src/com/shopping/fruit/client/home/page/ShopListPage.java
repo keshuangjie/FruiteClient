@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.shopping.fruit.client.base.AbsAdapter;
-import com.shopping.fruit.client.base.MyListFragment;
+import com.shopping.fruit.client.base.MyListPage;
 import com.shopping.fruit.client.R;
+import com.shopping.fruit.client.base.pagestack.TaskManagerFactory;
 import com.shopping.fruit.client.common.CommonApi;
 import com.shopping.fruit.client.entity.Shop;
 import com.shopping.fruit.client.home.adapter.ShopListAdapter;
 import com.shopping.fruit.client.shop.ShopDetailActivity;
+import com.shopping.fruit.client.shop.page.ProductListPage;
+import com.shopping.fruit.client.shop.page.ShopDetailPage;
 import com.shopping.fruit.client.util.Log;
 
 import org.json.JSONObject;
@@ -25,9 +28,10 @@ import java.util.ArrayList;
  * @author keshuangjie
  * @date 2015-3-18 11:52
  */
-public class ShopListPage extends MyListFragment<Shop> {
+public class ShopListPage extends MyListPage<Shop> {
 
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+    @Override
+    protected View onCreatePageContent(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.page_shop_list, container,
                 false);
         return view;
@@ -46,7 +50,8 @@ public class ShopListPage extends MyListFragment<Shop> {
             bundle.putString("description", item.description);
             bundle.putString("headImg", item.headImg);
             intent.putExtras(bundle);
-            startActivity(intent);
+//            startActivity(intent);
+            navigateTo(ShopDetailPage.class.getName(), bundle);
         }
     }
 
@@ -63,5 +68,10 @@ public class ShopListPage extends MyListFragment<Shop> {
     @Override
     protected String buildUrl() {
         return CommonApi.NEARBY_SALER_LIST + "?longitude=116.24&latitude=39.95&index=0&limit=10";
+    }
+
+    @Override
+    public boolean isWidgetPage() {
+        return true;
     }
 }

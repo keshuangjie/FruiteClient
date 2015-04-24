@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:padding="2dp" >
+
+        <RelativeLayout
+            android:id="@+id/user_info_header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff"
+            android:padding="@dimen/view_vertical_padding" >
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/im_clear"
+                android:background="@null"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:hint="输入手机号"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textColor="@color/normal_black_text_color"
+                android:textSize="@dimen/text_font_size_normal" />
+
+            <ImageView
+                android:id="@+id/im_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/view_vertical_padding"
+                android:src="@drawable/icon_delete_normal"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <View
+            style="@style/list_divider" >
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/user_info_activity_nick_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff"
+            android:padding="@dimen/view_vertical_padding" >
+
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btn_get_password"
+                android:background="@null"
+                android:hint="动态密码"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textColor="@color/normal_black_text_color"
+                android:textSize="@dimen/text_font_size_normal" />
+
+            <TextView
+                android:id="@+id/btn_get_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/green_btn_bg"
+                android:padding="10dp"
+                android:text="发送动态密码"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/text_font_size_normal" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/normal_split_color" >
+        </View>
+
+        <TextView
+            android:id="@+id/btn_login"
+            android:layout_width="120dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/green_btn_bg"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="登录"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/text_font_size_normal" >
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>

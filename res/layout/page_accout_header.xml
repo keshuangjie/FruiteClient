@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/view_vertical_padding"
+    android:paddingBottom="@dimen/view_vertical_padding"
+    android:background="@drawable/global_border_topbottom">
+
+    <TextView
+        android:id="@+id/tv_add_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/view_vertical_padding"
+        android:paddingBottom="@dimen/view_vertical_padding"
+        android:layout_marginBottom="@dimen/view_vertical_padding"
+        android:clickable="true"
+        android:text="添加收货地址"
+        android:textSize="@dimen/text_font_size_normal"
+        android:visibility="gone"/>
+
+    <include layout="@layout/page_address_list_item"/>
+
+</RelativeLayout>

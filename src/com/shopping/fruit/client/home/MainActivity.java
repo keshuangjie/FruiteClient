@@ -7,77 +7,64 @@ import android.view.MenuItem;
 import android.support.v4.app.FragmentManager;
 
 import com.shopping.fruit.client.base.BaseActivity;
-import com.shopping.fruit.client.base.BaseFragment;
+import com.shopping.fruit.client.base.CommonPage;
 import com.shopping.fruit.client.R;
+import com.shopping.fruit.client.base.pagestack.HistoryRecord;
+import com.shopping.fruit.client.base.pagestack.TaskManager;
+import com.shopping.fruit.client.base.pagestack.TaskManagerFactory;
+import com.shopping.fruit.client.home.page.MainPage;
 import com.shopping.fruit.client.home.page.ShopListPage;
-import com.shopping.fruit.client.shop.page.ShopDetailPage;
+import com.shopping.fruit.client.usercenter.page.AddrssListPage;
+import com.shopping.fruit.client.usercenter.page.UserCenterPage;
 import com.shopping.fruit.client.widget.TabGroupView;
 
 import java.util.Vector;
 
 public class MainActivity extends BaseActivity {
 
-    private TabGroupView mTabGroupView;
-    private Vector<BaseFragment> mFragments;
-    private FragmentManager mFragmentManager;
-
-    private final String[] tabNames = {"店铺", "订单", "我的"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.base_stack);
 
-        mTabGroupView = (TabGroupView) findViewById(R.id.item_tab_group);
-        mFragments = new Vector<BaseFragment>();
-        BaseFragment fragment;
-        Bundle bundle;
+        setRootRecord();
+        gotoDefaultPage();
+    }
 
-        for(int i=0; i<2; i++){
-            fragment = new ShopListPage();
-            bundle = new Bundle();
-            fragment.setArguments(bundle);
-            mFragments.add(fragment);
-        }
+    private void setRootRecord() {
+        TaskManagerFactory.getTaskManager().registerRootTask(MainActivity.class.getName());
+        // set root page record
+        final TaskManager taskManager = TaskManagerFactory.getTaskManager();
+        taskManager.attach(this);
+        HistoryRecord record = new HistoryRecord(MainActivity.class.getName(), MainPage.class.getName());
+        record.taskSignature = HistoryRecord.genSignature(this);
+        taskManager.setRootRecord(record);
+    }
 
-        fragment = new ShopDetailPage();
-        mFragments.add(fragment);
-
-        mFragmentManager = getSupportFragmentManager();
-
-        mTabGroupView.setContainerViewId(R.id.fl_content);
-        mTabGroupView.setFragmentList(mFragments);
-        mTabGroupView.setFragmentManager(mFragmentManager);
-        mTabGroupView.setTabChangeListener(new TabGroupView.TabChangeListener() {
-            @Override
-            public void onChange(int position) {
-                ActionBar actionBar = getSupportActionBar();
-                actionBar.setTitle(tabNames[position]);
-            }
-        });
-        mTabGroupView.setSelected(0);
+    private void gotoDefaultPage() {
+        navigateTo(MainPage.class.getName(), "", null);
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 }

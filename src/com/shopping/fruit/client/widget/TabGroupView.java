@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.shopping.fruit.client.base.BaseFragment;
+import com.shopping.fruit.client.base.CommonPage;
 import com.shopping.fruit.client.util.Log;
 
 public class TabGroupView extends LinearLayout implements OnClickListener {
@@ -22,9 +22,9 @@ public class TabGroupView extends LinearLayout implements OnClickListener {
 	private boolean isInited = false;
 	private OnClickListener onClickListener;
 	private View currentView = null;
-	private Vector<BaseFragment> mFragmentList;
+	private Vector<CommonPage> mFragmentList;
 	private FragmentManager mFragmentManager;
-	private BaseFragment mCurrentFragment;
+	private CommonPage mCurrentFragment;
 	private int mContainerViewId;
 
 	public TabGroupView(Context context, AttributeSet attrs) {
@@ -39,11 +39,11 @@ public class TabGroupView extends LinearLayout implements OnClickListener {
 		this.mFragmentManager = fragmentManager;
 	}
 
-	public void setFragmentList(Vector<BaseFragment> fragmentList) {
+	public void setFragmentList(Vector<CommonPage> fragmentList) {
 		this.mFragmentList = fragmentList;
 	}
 
-	public Vector<BaseFragment> getFragmentList() {
+	public Vector<CommonPage> getFragmentList() {
 		return this.mFragmentList;
 	}
 
@@ -160,13 +160,13 @@ public class TabGroupView extends LinearLayout implements OnClickListener {
 		return 0;
 	}
 
-	public BaseFragment getCurrentFragment() {
+	public CommonPage getCurrentFragment() {
 		if (mFragmentList != null && mFragmentList.size() > 1)
 			return mFragmentList.get(getSelectIndex());
 		return null;
 	}
 
-	public BaseFragment getFragment(int index) {
+	public CommonPage getFragment(int index) {
 		if (mFragmentList != null && mFragmentList.size() > 1 && index < mFragmentList.size())
 			return mFragmentList.get(index);
 		return null;
@@ -198,11 +198,11 @@ public class TabGroupView extends LinearLayout implements OnClickListener {
 	}
 
 	public void switchContent(View fromView, View toView) {
-		BaseFragment from = null;
+		CommonPage from = null;
 		if(fromView != null){
 			from = mFragmentList.get(fromView.getId());
 		}
-		BaseFragment to = mFragmentList.get(toView.getId());
+		CommonPage to = mFragmentList.get(toView.getId());
 		if (mCurrentFragment != to) {
 			mCurrentFragment = to;
             if (mTabChangeListener != null) {

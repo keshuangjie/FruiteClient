@@ -26,6 +26,8 @@ public class Product {
     public int totalSold; // 已出售数量
     public String description;
 
+    public int selectedCount; //选择的数量
+
     public Product(){
     }
 
@@ -56,4 +58,26 @@ public class Product {
         return list;
     }
 
+    public static ArrayList<Product> parseAccount(JSONObject json){
+        ArrayList<Product> list = new ArrayList<Product>();
+        if (json != null && !TextUtils.isEmpty(json.toString())) {
+//            JSONObject data = json.optJSONObject("data");
+//            if (data != null && !TextUtils.isEmpty(data.toString())) {
+                JSONArray array = json.optJSONArray("skuIdList");
+                if(array != null && array.length() > 0){
+                    for (int i=0; i<array.length(); i++){
+                        JSONObject jsonItem = array.optJSONObject(i);
+                        Product item = new Product();
+                        item.id = jsonItem.optInt("id");
+                        item.name = jsonItem.optString("name");
+                        item.price = jsonItem.optDouble("unitPrice");
+                        item.selectedCount = jsonItem.optInt("number");
+                        list.add(item);
+                    }
+                }
+//            }
+        }
+
+        return list;
+    }
 }

@@ -1,74 +1,69 @@
 package com.shopping.fruit.client.shop.page;
 
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
+import android.view.ViewGroup;
 
 import com.shopping.fruit.client.R;
-import com.shopping.fruit.client.base.AbsAdapter;
-import com.shopping.fruit.client.base.MyListFragment;
-import com.shopping.fruit.client.common.CommonApi;
-import com.shopping.fruit.client.entity.Product;
-import com.shopping.fruit.client.shop.adapter.ProductAdapter;
-import com.shopping.fruit.client.util.Log;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
+import com.shopping.fruit.client.base.CommonPage;
 
 /**
- * 商家详情页
+ * TODO
  *
  * @author keshuangjie
- * @date 2015-03-25 19:59
+ * @date 2015-04-22 16:26
  */
-public class ShopDetailPage extends MyListFragment<Product> {
+public class ShopDetailPage extends CommonPage {
 
-    private int salerId = 1;
-    private String shopName, shopDescription, shopLogo;
+    private String shopName;
+    private int salerId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
-        if(bundle != null){
-//            salerId = bundle.getInt("salerId");
+        if (bundle != null) {
+            salerId = bundle.getInt("salerId");
             shopName = bundle.getString("name");
-            shopDescription = bundle.getString("description");
-            shopLogo = bundle.getString("headImg");
         }
+
+        setTitle(shopName);
+        setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
-    protected void addHeaderView() {
-        View headView = LayoutInflater.from(getActivity()).inflate(R.layout.page_shopdetail_header, null);
-        TextView tv_name = (TextView) headView.findViewById(R.id.tv_name);
-        TextView tv_description = (TextView) headView.findViewById(R.id.tv_description);
-
-        tv_name.setText(shopName);
-        tv_description.setText(shopDescription + "\n我的蔬菜特别新鲜\n我的肉是本地猪肉");
-        mListView.addHeaderView(headView, null, true);
+    protected View onCreatePageContent(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_shopdetail, container, false);
+        return view;
     }
 
     @Override
-    protected AbsAdapter<Product> initAdapter() {
-        return new ProductAdapter(getActivity());
+    protected void onFindViews(View view) {
+        super.onFindViews(view);
+        initView();
     }
 
     @Override
-    protected String buildUrl() {
-        return CommonApi.SALER_DETAIL + "?salerId=" + salerId;
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
-    @Override
-    protected ArrayList<Product> parseData(JSONObject json, int type) {
-        Log.i("kshj - ShopDetailPage - parseData: ", json.toString());
-        if(json == null || TextUtils.isEmpty(json.toString())){
-            return null;
-        }
-        return Product.parse(json);
+    private void initView() {
+        addProductListView();
+        addShoppintCartView();
+    }
+
+    private void addProductListView() {
+        Fragment fragment = new ProductListPage();
+        addWidgetFrament(R.id.fl_product_list, fragment, getArguments());
+    }
+
+    private void addShoppintCartView(){
+        Fragment fragment = new ShoppingCartPage();
+        addWidgetFrament(R.id.fl_shoppingcart, fragment, getArguments());
     }
 }

@@ -12,5 +12,11 @@ public class CommonApi {
 
     public static final String NEARBY_SALER_LIST = HOST + "/getSalersNearby"; // 获取附近商户信息
     public static final String SALER_DETAIL = HOST + "/getSalerDetail"; // 获取商户详情信息
+    public static final String GO_TO_ACCOUNT = HOST + "/goToAccountPage"; // 结算页
+    public static final String ADD_USER_ADDRESS = HOST + "/addUserAddress"; // 添加用户地址
+    public static final String SEND_VERIFYCODE = HOST + "/sendVerifyCode"; // 发送验证码
+    public static final String LOGIN = HOST + "/verifyTelephone"; // 登录
+    public static final String GET_USER_ADRESS_LIST = HOST + "/getUserAddressList"; // 获取用户地址列表
+    public static final String GET_USER_INFO = HOST + "/getOwnDetail"; // 获取用户信息
 
 }

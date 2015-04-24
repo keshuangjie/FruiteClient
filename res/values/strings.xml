@@ -4,6 +4,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- common constant -->
+    <string name="sure">确定</string>
+
     <!-- 下拉刷新 -->
     <string name="common_list_footer_text">正在努力加载中</string>
     <string name="common_list_footer_text_more">点击更多</string>

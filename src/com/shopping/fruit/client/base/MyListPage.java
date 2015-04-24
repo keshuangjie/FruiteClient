@@ -25,10 +25,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.shopping.fruit.client.R;
 import com.shopping.fruit.client.entity.ResultEntity;
+import com.shopping.fruit.client.network.RequestWithCookie;
 import com.shopping.fruit.client.util.FormatUtils;
 import com.shopping.fruit.client.util.Log;
 import com.shopping.fruit.client.widget.pulltorefresh.IPullRefresh;
@@ -43,9 +43,9 @@ import com.shopping.fruit.client.widget.pulltorefresh.XListViewHeader;
  * 
  * @param <T>
  */
-public abstract class MyListFragment<T> extends BaseFragment implements
+public abstract class MyListPage<T> extends CommonPage implements
 		OnItemClickListener, OnScrollListener, IPullRefresh {
-	protected static final String TAG = MyListFragment.class.getName();
+	protected static final String TAG = MyListPage.class.getName();
 	
 	// private static final long REFRESH_INTERVAL_TIME = 1000;// 刷新间隔，防止多长点击刷新
 
@@ -148,16 +148,24 @@ public abstract class MyListFragment<T> extends BaseFragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		if (mRootView == null) {
-			mRootView = onCreateView(inflater, container);
-
-			initView();
-		}
-
-		return mRootView;
+		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
-	protected void initView() {
+    @Override
+    protected View onCreatePageContent(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.xlistview, container,
+                false);
+        return view;
+    }
+
+    @Override
+    protected void onFindViews(View view) {
+        super.onFindViews(view);
+        mRootView = view;
+        initView();
+    }
+
+    protected void initView() {
 		mListView = (ListView) mRootView.findViewById(R.id.listView);
 		addHeaderView();
 		addFooterView();
@@ -173,12 +181,6 @@ public abstract class MyListFragment<T> extends BaseFragment implements
             listView.setPullRefreshEnable(isPullRefreshEnable());
             listView.setPullRefreshListener(this);
         }
-	}
-
-	protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
-		View view = inflater.inflate(R.layout.xlistview, container,
-				false);
-		return view;
 	}
 
 	@Override
@@ -243,7 +245,7 @@ public abstract class MyListFragment<T> extends BaseFragment implements
 
     private void executeRequest(final int type) {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, buildUrl(),
+        RequestWithCookie request = new RequestWithCookie(Request.Method.GET, buildUrl(),
                 null, new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject jsonObject) {

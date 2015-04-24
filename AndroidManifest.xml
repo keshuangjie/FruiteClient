@@ -14,13 +14,18 @@
         android:name=".MyApplication">
         <activity
             android:name=".home.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateUnspecified|adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity android:name=".shop.ShopDetailActivity"/>
+        <activity android:name=".order.AccountActivity"/>
+        <activity android:name=".usercenter.LoginActivity"/>
     </application>
 
 </manifest>

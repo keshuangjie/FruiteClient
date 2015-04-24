@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="title_bar">#00d5b9</color>
+
     <color name="normal_title_bottom_line_color">#1b8656</color>
     <color name="normal_title_font_color">#93d8c7</color>
     <color name="normal_title_font_white">#ffffff</color>
@@ -9,6 +11,13 @@
     <color name="normal_black_text_color">#4e4e4e</color>
     <color name="create_channel_line_default_color">#5b6a78</color>
     <color name="normal_back_backgroud_pulltorefresh">#f7f7f7</color>
-    
+
+    <color name="custom_white">#ffffffff</color>
+
+    <color name="custom_title">#ff4d4d4d</color>
+    <color name="custom_input">#ffff2d4b</color>
+    <color name="custom_hint">#ffc4c7cc</color>
+
+    <color name="list_divider">#ffe0e0e0</color>
     
 </resources>

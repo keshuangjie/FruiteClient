@@ -41,7 +41,7 @@ public class PlusView extends LinearLayout implements View.OnClickListener{
         tv_count.setText(mCount + "");
         Log.i("kshj", "PlusView -> reduce() -> mCount: " + mCount);
         if(mOnChangeListener != null){
-            mOnChangeListener.onPlus(mCount);
+            mOnChangeListener.onPlus(this, mCount);
         }
         if(mCount > 0){
             iv_reduce.setVisibility(View.VISIBLE);
@@ -54,7 +54,7 @@ public class PlusView extends LinearLayout implements View.OnClickListener{
         tv_count.setText(mCount + "");
         Log.i("kshj", "PlusView -> reduce() -> mCount: " + mCount);
         if(mOnChangeListener != null){
-            mOnChangeListener.onReduce(mCount);
+            mOnChangeListener.onReduce(this, mCount);
         }
         if (mCount <= 0){
             mCount = 0;
@@ -82,7 +82,7 @@ public class PlusView extends LinearLayout implements View.OnClickListener{
     }
 
     public interface OnChangeListener {
-        public void onPlus(int count);
-        public void onReduce(int count);
+        public void onPlus(View view, int count);
+        public void onReduce(View view, int count);
     }
 }
