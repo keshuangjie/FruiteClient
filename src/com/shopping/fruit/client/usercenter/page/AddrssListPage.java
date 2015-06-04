@@ -2,6 +2,9 @@ package com.shopping.fruit.client.usercenter.page;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +29,11 @@ import java.util.ArrayList;
  */
 public class AddrssListPage extends MyListPage<AddressInfo> {
 
+    public static String KEY_BACK = "back";
+    public static final int EVENT_ADD = 0;
+    public static final int EVENT_UPDATE = 1;
+    public static final int EVENT_DELETE = 2;
+
     AddressListController mController;
 
     @Override
@@ -36,6 +44,7 @@ public class AddrssListPage extends MyListPage<AddressInfo> {
         mController.initData(getPageArguments());
 
         setTitle("我的地址");
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -58,6 +67,11 @@ public class AddrssListPage extends MyListPage<AddressInfo> {
                 bundle.putString("address", item.address);
             }
             goBack(bundle);
+        } else {
+            AddressInfo item = (AddressInfo) arg0.getAdapter().getItem(arg2);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("address", item);
+            navigateTo(AddAddressPage.class.getCanonicalName(), bundle);
         }
     }
 
@@ -76,5 +90,76 @@ public class AddrssListPage extends MyListPage<AddressInfo> {
         AddressAdapter adapter = new AddressAdapter(getActivity());
         adapter.setController(mController);
         return adapter;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        MenuItem item = menu.findItem(R.id.sure);
+        item.setTitle("新增");
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sure:
+                navigateTo(AddAddressPage.class.getCanonicalName(), null);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackFromOtherPage(Bundle args) {
+        if (args != null) {
+            int eventId = args.getInt(KEY_BACK);
+            final AddressInfo info = args.getParcelable("addressInfo");
+            if (info == null) {
+                return;
+            }
+            switch (eventId) {
+                case EVENT_ADD:
+                    addAddress(info);
+                    break;
+                case EVENT_DELETE:
+                    deleteAddress(info);
+                    break;
+                case EVENT_UPDATE:
+                    editAddress(info);
+                    break;
+            }
+        }
+    }
+
+    private void editAddress(AddressInfo info) {
+        mContents = mAdapter.getContents();
+        for (AddressInfo address : mContents) {
+            if (address.id == info.id) {
+                address.name = info.name;
+                address.phone = info.phone;
+                address.address = info.address;
+                address.detail = info.detail;
+                break;
+            }
+        }
+        mAdapter.setContents(mContents);
+    }
+
+    private void addAddress(AddressInfo info) {
+        mContents = mAdapter.getContents();
+        mContents.add(info);
+        mAdapter.setContents(mContents);
+    }
+
+    private void deleteAddress(AddressInfo info) {
+        mContents = mAdapter.getContents();
+        for (AddressInfo address : mContents) {
+            if (address.id == info.id) {
+                mContents.remove(address);
+                break;
+            }
+        }
+        mAdapter.setContents(mContents);
     }
 }

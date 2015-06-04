@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.shopping.fruit.client.R;
+import com.shopping.fruit.client.home.page.MainPage;
 
 /**
  * Task的基类实现，以FragmentActivity作为载体，子页面用Fragment实现 </p>
@@ -32,8 +33,37 @@ public abstract class BaseTask extends ActionBarActivity implements Task {
 
 	static final String FRAGMENTS_TAG = "android:support:fragments";
 
+    public static final String KEY_LAUNCH_MODE = "key_launch_mode";
+
 	// 是否调用了onDestroy API17 新增了 isDestroyed()
 	boolean mDestroyed = false;
+
+
+    /**
+     * 启动模式
+     */
+    public static enum LaunchMode {
+        /**
+         * 启动后清除页面栈，back回退后到住地图
+         */
+        MAP_MODE,
+        /**
+         * 启动后清除页面栈，back后退出程序
+         */
+        CLEAN_MODE,
+        /**
+         * 启动后保留原有页面栈
+         */
+        NORMAL_MODE,
+        /**
+         * 如果有界面，保持栈不变，如果没有插入地图
+         */
+        NORMAL_MAP_MODE,
+        /**
+         * 强制清除页面栈，back后一定退出程序，用于百度框调起地图
+         */
+        BAIDU_MODE,
+    }
 
 	@Override
 	public TaskManager getTaskManager() {
@@ -155,6 +185,16 @@ public abstract class BaseTask extends ActionBarActivity implements Task {
 				Log.e(TAG, "", e);
 			}
 		}
+
+        if(MainPage.class.getCanonicalName().equals(pageClsName)) {
+            // 清理page
+            Stack<Page> pages = getPageStack();
+            if (pages != null && !pages.isEmpty()) {
+                pages.clear();
+            }
+            removeHistoryRecords();
+        }
+
 		// add the page to page-stack
 		// if the record has been in stack,bring it to front
 		recordPageNavigation(page);
@@ -866,6 +906,7 @@ public abstract class BaseTask extends ActionBarActivity implements Task {
 			}
 			targetPage.mIsBack = true;
 			targetPage.mBackArgs = args;
+            targetPage.setArguments(args);
 			if (targetPage.getTask() == null) {
 				targetPage.setTask(this);
 			}

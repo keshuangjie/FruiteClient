@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/view_vertical_padding"
-    android:paddingBottom="@dimen/view_vertical_padding"
-    android:background="@drawable/global_border_topbottom">
+    android:paddingBottom="@dimen/view_vertical_padding">
 
     <TextView
         android:id="@+id/tv_add_address"
@@ -22,4 +22,14 @@
 
     <include layout="@layout/page_address_list_item"/>
 
-</RelativeLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="12dip"/>
+
+    <include layout="@layout/page_accout_header_2"/>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="12dip"/>
+
+</LinearLayout>

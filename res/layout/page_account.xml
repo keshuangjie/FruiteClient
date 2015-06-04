@@ -45,6 +45,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/rl_bottom"
         android:id="@+id/product_list_view"
+        android:background="@color/custom_white"
         layout="@layout/xlistview"/>
 
 </RelativeLayout>

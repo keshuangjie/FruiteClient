@@ -11,18 +11,27 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.shopping.fruit.client.R;
 import com.shopping.fruit.client.base.AbsAdapter;
 import com.shopping.fruit.client.base.MyListPage;
 import com.shopping.fruit.client.common.CommonApi;
 import com.shopping.fruit.client.entity.Product;
+import com.shopping.fruit.client.home.page.MainPage;
+import com.shopping.fruit.client.network.RequestWithCookie;
 import com.shopping.fruit.client.order.adapter.AccoutAdapter;
 import com.shopping.fruit.client.usercenter.controller.AddressListController;
 import com.shopping.fruit.client.usercenter.entity.AddressInfo;
 import com.shopping.fruit.client.usercenter.page.AddAddressPage;
 import com.shopping.fruit.client.usercenter.page.AddrssListPage;
 import com.shopping.fruit.client.util.Log;
+import com.sinaapp.whutec.util.common.ToastUtil;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -107,6 +116,7 @@ public class AccountPage extends MyListPage<Product> implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_comfirm:
+                submitOrder();
                 break;
             case R.id.tv_add_address:
                 navigateTo(AddAddressPage.class.getName(), null);
@@ -117,6 +127,43 @@ public class AccountPage extends MyListPage<Product> implements View.OnClickList
                 navigateTo(AddrssListPage.class.getName(), bundle);
                 break;
         }
+    }
+
+    private void submitOrder() {
+        if (mAddressInfo == null) {
+            ToastUtil.getInstance().toast("请添加收货地址");
+            return;
+        }
+
+        if (mProducts == null || mProducts.size() == 0) {
+            ToastUtil.getInstance().toast("订单商品不能为空");
+        }
+
+        String url = CommonApi.SUBMIT_ORDER + "?salerId=" + shopId + "&skuList=" + skus + "&priceTotal="
+                + priceTotal + "&userAddressId=" + 1 + "&sendDay=20150426" + "&sendTimeSpan=20:00~21:40";
+
+        Log.i("kshj", "AccountPage -> submitOrder -> url: " + url);
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        RequestWithCookie request = new RequestWithCookie(Request.Method.GET, url,
+                null, new Response.Listener<JSONObject>(){
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                if(jsonObject != null){
+                    Log.i("kshj", "AccountPage -> submitOrder -> json: " + jsonObject.toString());
+                }
+                ToastUtil.getInstance().toast("下单成功");
+                goToMainPage(MainPage.PAGE_ORDER_INDEX, true);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                volleyError.printStackTrace();
+                ToastUtil.getInstance().toast("下单失败");
+            }
+        });
+        queue.add(request);
     }
 
     private void updateData(){
@@ -180,6 +227,7 @@ public class AccountPage extends MyListPage<Product> implements View.OnClickList
     protected ArrayList<Product> parseData(JSONObject json, int type) {
         JSONObject data = json.optJSONObject("data");
         if(data != null && !TextUtils.isEmpty(data.toString())){
+            Log.i("kshj", "AccoutPage -> parseData -> json: " + json.toString());
             priceTotal = data.optDouble("priceTotal");
             JSONObject addressJson = data.optJSONObject("address");
             if (addressJson.optInt("exist") == 0){
@@ -187,6 +235,11 @@ public class AccountPage extends MyListPage<Product> implements View.OnClickList
                 mAddressInfo.name = addressJson.optString("name");
                 mAddressInfo.phone = addressJson.optString("telephone");
                 mAddressInfo.address = addressJson.optString("address");
+            }
+            JSONArray array = data.optJSONArray("skuIdList");
+            if (array != null) {
+               skus = array.toString();
+                Log.i("kshj", "AccoutPage -> parseData() -> skus: " + skus);
             }
             mProducts = Product.parseAccount(data);
         }
@@ -201,4 +254,5 @@ public class AccountPage extends MyListPage<Product> implements View.OnClickList
     protected AbsAdapter<Product> initAdapter() {
         return new AccoutAdapter(getActivity());
     }
+
 }

@@ -7,6 +7,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -18,6 +19,8 @@ import com.shopping.fruit.client.R;
 import com.shopping.fruit.client.base.CommonPage;
 import com.shopping.fruit.client.common.CommonApi;
 import com.shopping.fruit.client.entity.ResultEntity;
+import com.shopping.fruit.client.home.page.MainPage;
+import com.shopping.fruit.client.network.LibCookieManager;
 import com.shopping.fruit.client.network.RequestWithCookie;
 import com.shopping.fruit.client.usercenter.LoginActivity;
 import com.shopping.fruit.client.usercenter.entity.UserInfo;
@@ -26,17 +29,18 @@ import com.sinaapp.whutec.util.common.ToastUtil;
 import org.json.JSONObject;
 
 /**
- * TODO
+ * 个人主页
  *
  * @author keshuangjie
  * @date 2015-04-20 20:25
  */
-public class UserCenterPage extends CommonPage {
+public class UserCenterPage extends CommonPage implements View.OnClickListener {
     private static final int MESSAGE_UPDATE = 1;
     private static final int MESSAGE_NOT_LOGIN = 2;
     private static final int Message_ERROR = 3;
 
     private TextView tv_name, tv_phone;
+    private Button btn_exit;
 
     private UserInfo mUserInfo;
 
@@ -69,15 +73,24 @@ public class UserCenterPage extends CommonPage {
         initView(view);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void initView(View view) {
         tv_name = (TextView) view.findViewById(R.id.tv_name);
         tv_phone = (TextView) view.findViewById(R.id.tv_phone);
+        btn_exit = (Button) view.findViewById(R.id.btn_exit);
+        btn_exit.setOnClickListener(this);
+        view.findViewById(R.id.tv_address).setOnClickListener(this);
     }
 
     private void updateData(){
         if (mUserInfo != null) {
             tv_name.setText(mUserInfo.name);
             tv_phone.setText(mUserInfo.phone);
+            btn_exit.setVisibility(View.VISIBLE);
         }
     }
 
@@ -86,6 +99,20 @@ public class UserCenterPage extends CommonPage {
         super.onStart();
 
         getUserInfo();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_address:
+                navigateTo(AddrssListPage.class.getCanonicalName(), null);
+                break;
+            case R.id.btn_exit:
+                LibCookieManager.clearCookie();
+                btn_exit.setVisibility(View.GONE);
+                goToMainPage(MainPage.PAGE_SHOPLIST_INDEX, false);
+                break;
+        }
     }
 
     private void getUserInfo() {

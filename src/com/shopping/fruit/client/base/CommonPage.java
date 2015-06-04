@@ -8,13 +8,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 
-import com.shopping.fruit.client.R;
 import com.shopping.fruit.client.base.pagestack.BasePage;
 import com.shopping.fruit.client.base.pagestack.TaskManagerFactory;
-import com.shopping.fruit.client.shop.page.ProductListPage;
-import com.shopping.fruit.client.shop.page.ShopDetailPage;
+import com.shopping.fruit.client.home.page.MainPage;
 import com.shopping.fruit.client.usercenter.LoginActivity;
-import com.shopping.fruit.client.widget.ProgressDialogUtil;
+import com.shopping.fruit.client.widget.DialogUtil;
 
 /**
  * Created by keshuangjie on 2015/3/16.
@@ -22,11 +20,11 @@ import com.shopping.fruit.client.widget.ProgressDialogUtil;
 public class CommonPage extends BasePage{
 
     protected void showProgress() {
-        ProgressDialogUtil.show(getActivity(), "", "");
+        DialogUtil.show(getActivity(), "", "");
     }
 
     protected void dismissProgress(){
-        ProgressDialogUtil.dismiss();
+        DialogUtil.dismiss();
     }
 
     protected ActionBar getActionBar(){
@@ -43,7 +41,7 @@ public class CommonPage extends BasePage{
      * @param enabled
      */
     protected void setDisplayHomeAsUpEnabled(boolean enabled) {
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(enabled);
     }
 
     /**
@@ -81,6 +79,13 @@ public class CommonPage extends BasePage{
     protected void goToLoginPage() {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
+    }
+
+    protected void goToMainPage(int index, boolean refresh) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(MainPage.KEY_INDEX, index);
+        bundle.putBoolean("refresh", refresh);
+        navigateTo(MainPage.class.getCanonicalName(), bundle);
     }
 
 }

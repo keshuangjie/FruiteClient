@@ -12,16 +12,23 @@ import com.shopping.fruit.client.base.MyListPage;
 import com.shopping.fruit.client.R;
 import com.shopping.fruit.client.base.pagestack.TaskManagerFactory;
 import com.shopping.fruit.client.common.CommonApi;
+import com.shopping.fruit.client.common.Config;
 import com.shopping.fruit.client.entity.Shop;
 import com.shopping.fruit.client.home.adapter.ShopListAdapter;
+import com.shopping.fruit.client.manager.LocData;
+import com.shopping.fruit.client.manager.LocationEvent;
+import com.shopping.fruit.client.manager.LocationManager;
 import com.shopping.fruit.client.shop.ShopDetailActivity;
 import com.shopping.fruit.client.shop.page.ProductListPage;
 import com.shopping.fruit.client.shop.page.ShopDetailPage;
 import com.shopping.fruit.client.util.Log;
+import com.sinaapp.whutec.util.common.SharedPreUtil;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 商店列表页
@@ -29,6 +36,35 @@ import java.util.ArrayList;
  * @date 2015-3-18 11:52
  */
 public class ShopListPage extends MyListPage<Shop> {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        LocationManager.getInstance().start(getActivity());
+    }
+
+    @Override
+    protected boolean isOnStartLoad() {
+        return false;
+    }
+
+    private void onEventMainThread(LocationEvent event) {
+        LocData data = LocationManager.getInstance().getLocData();
+        setTitle(data.mDetailAddr);
+        initData();
+    }
 
     @Override
     protected View onCreatePageContent(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +81,8 @@ public class ShopListPage extends MyListPage<Shop> {
             Log.i("kshj", "ShopListPage -> onItemClick() -> salerId:" + item.shopId);
             Intent intent = new Intent(getActivity(), ShopDetailActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putInt("salerId", item.shopId);
+//            bundle.putInt("salerId", item.shopId);
+            bundle.putInt("salerId", 1);
             bundle.putString("name", item.name);
             bundle.putString("description", item.description);
             bundle.putString("headImg", item.headImg);
@@ -67,7 +104,10 @@ public class ShopListPage extends MyListPage<Shop> {
 
     @Override
     protected String buildUrl() {
-        return CommonApi.NEARBY_SALER_LIST + "?longitude=116.24&latitude=39.95&index=0&limit=10";
+        LocData data = LocationManager.getInstance().getLocData();
+        double lng = data.mGeoLng;
+        double lat = data.mGeoLat;
+        return CommonApi.NEARBY_SALER_LIST + "?longitude=" + lng + "&latitude=" + lat;
     }
 
     @Override

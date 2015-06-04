@@ -40,6 +40,12 @@
                 </FrameLayout>
             </RelativeLayout>
             <!--<TextView android:textColor="@color/custom_input" android:id="@+id/address_delete" android:background="@drawable/global_item_pressed_selector" android:clickable="true" android:text="删除该地址" style="@style/CustomItem" />-->
+            <Button
+                android:id="@+id/btn_del"
+                style="@style/button"
+                android:layout_gravity="center_horizontal"
+                android:text="删除地址"
+                android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

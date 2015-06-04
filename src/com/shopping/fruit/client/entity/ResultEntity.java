@@ -21,18 +21,18 @@ public class ResultEntity {
 
     public ArrayList data;
 
-    public ResultEntity(JSONObject json){
-        if(json != null){
-            this.code = json.optInt("code");
-        }
-    }
-
     public boolean isSuccess(){
         return this.code == CODE_SUCCESS;
     }
 
     public boolean isNotLogin(){
         return this.code == CODE_NOT_LOGIN;
+    }
+
+    public ResultEntity(JSONObject json){
+        if(json != null){
+            this.code = json.optInt("code");
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package com.shopping.fruit.client.shop.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shopping.fruit.client.R;
@@ -10,6 +11,7 @@ import com.shopping.fruit.client.base.AbsAdapter;
 import com.shopping.fruit.client.entity.Product;
 import com.shopping.fruit.client.event.ShoppintCartEvent;
 import com.shopping.fruit.client.widget.PlusView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -41,10 +43,12 @@ public class ProductAdapter extends AbsAdapter<Product> implements PlusView.OnCh
             TextView tv_description = ViewHolder.get(convertView, R.id.tv_description);
             TextView tv_price = ViewHolder.get(convertView, R.id.tv_price);
             TextView tv_totalSold = ViewHolder.get(convertView, R.id.tv_totalSold);
+            ImageView im_head = ViewHolder.get(convertView, R.id.im_head);
             tv_name.setText(item.name);
             tv_description.setText(item.description);
             tv_price.setText(item.price + "$/斤");
             tv_totalSold.setText("已售出" + item.totalSold + "份");
+            Picasso.with(mContext).load(item.img).into(im_head);
 
             PlusView plusView = ViewHolder.get(convertView, R.id.plusView);
             plusView.setTag(item);

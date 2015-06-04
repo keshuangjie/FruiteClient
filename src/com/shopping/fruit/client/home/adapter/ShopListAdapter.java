@@ -3,11 +3,13 @@ package com.shopping.fruit.client.home.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shopping.fruit.client.base.AbsAdapter;
 import com.shopping.fruit.client.R;
 import com.shopping.fruit.client.entity.Shop;
+import com.squareup.picasso.Picasso;
 
 /**
  * TODO
@@ -33,10 +35,12 @@ public class ShopListAdapter extends AbsAdapter<Shop> {
             TextView tv_description = ViewHolder.get(convertView, R.id.tv_description);
             TextView tv_distance = ViewHolder.get(convertView, R.id.tv_distance);
             TextView tv_category = ViewHolder.get(convertView, R.id.tv_category);
+            ImageView im_head = ViewHolder.get(convertView, R.id.im_head);
             tv_name.setText(item.name);
             tv_description.setText(item.description);
             tv_distance.setText(item.distance + "");
             tv_category.setText(item.category);
+            Picasso.with(mContext).load(item.headImg).into(im_head);
         }
 
         return convertView;

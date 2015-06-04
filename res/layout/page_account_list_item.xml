@@ -9,23 +9,23 @@
 
     <TextView
         android:id="@+id/tv_left"
+        style="@style/text_main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:singleLine="true"
         android:ellipsize="end"
-        android:textSize="@dimen/text_font_size_normal"
+        android:layout_alignParentLeft="true"
         android:text="苹果："/>
 
 
     <TextView
         android:id="@+id/tv_right"
+        style="@style/text_main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:singleLine="true"
         android:ellipsize="end"
-        android:textSize="@dimen/text_font_size_normal"
+        android:layout_alignParentRight="true"
         android:text="￥2*20"/>
 
 </RelativeLayout>

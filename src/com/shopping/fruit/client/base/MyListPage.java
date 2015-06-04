@@ -55,6 +55,7 @@ public abstract class MyListPage<T> extends CommonPage implements
 	protected static final int MESSAGE_LOAD_COMPLETE = 3;// 加载完成
 	protected static final int MESSAGE_NO_DATA = 4; // 没有数据
 	protected static final int MESSAGE_NET_ERROR = 5; // 网络错误
+    protected static final int MESSAGE_NOT_LOGIN = 6; // 没有登录
 
 	protected static final int MESSAGE_LOAD_MORE_PULL = 6;// 下拉加载更多
 	protected static final int MESSAGE_REFRESH_PULL_UP = 7;// 上拉刷新。
@@ -132,6 +133,9 @@ public abstract class MyListPage<T> extends CommonPage implements
 				showNetErrorNotice(msg.arg1);
 				Log.i(TAG, "mHandler -> net error");
 				break;
+            case MESSAGE_NOT_LOGIN:
+                goToLoginPage();
+                break;
 			default:
 				break;
 			}
@@ -211,6 +215,7 @@ public abstract class MyListPage<T> extends CommonPage implements
 	protected void reInitData() {
 		mIsFirstLoad = true;
 		mContents.clear();
+        requestIndex = 0;
 		initData();
 	}
 
@@ -245,7 +250,9 @@ public abstract class MyListPage<T> extends CommonPage implements
 
     private void executeRequest(final int type) {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        RequestWithCookie request = new RequestWithCookie(Request.Method.GET, buildUrl(),
+        String url = getFinalUrl(type);
+        Log.i("kshj", "MyListPage -> executeRequest() -> buildUrl: " + url);
+        RequestWithCookie request = new RequestWithCookie(Request.Method.GET, url,
                 null, new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject jsonObject) {
@@ -262,6 +269,16 @@ public abstract class MyListPage<T> extends CommonPage implements
 
     }
 
+    private String getFinalUrl(final int type) {
+        String url = buildUrl();
+        if (!url.contains("?")) {
+            url += "?";
+        }
+        String finalUrl = url + "&index=" + requestIndex;
+        return finalUrl;
+
+    }
+
     protected abstract String buildUrl();
 
 	/**
@@ -274,7 +291,9 @@ public abstract class MyListPage<T> extends CommonPage implements
 			if(mMoreView != null){
 				mMoreView.setDisplayType(MoreView.TYPE_LOADING);
 			}
-		}
+		} else if (type == MESSAGE_LOAD_FIRST) {
+            showProgress();
+        }
 
         executeRequest(type);
 	}
@@ -297,10 +316,11 @@ public abstract class MyListPage<T> extends CommonPage implements
 //
 //		// JSONObject json = httpResponse.getJSONObject();
 		if (json != null) {
-			Log.i(TAG, "onEnd()->JSONObject: " + json.toString());
+			Log.i("kshj", "onEnd()->JSONObject: " + json.toString());
 
 			ResultEntity result = new ResultEntity(json);
 			if (result.isSuccess()) {
+                requestIndex++;
 				result.data = parseData(json,type);
 				// 有数据返回
 				if (result.data != null && result.data.size() > 0) {
@@ -317,6 +337,7 @@ public abstract class MyListPage<T> extends CommonPage implements
 				}
 				// 未登录
 			} else if (result.isNotLogin()) {
+                sendHandlerMessage(MESSAGE_NOT_LOGIN, null, type);
 				Log.i(TAG, "onEnd()-> no login");
 			} else {
 				sendHandlerMessage(MESSAGE_NET_ERROR, null, type);
@@ -388,6 +409,8 @@ public abstract class MyListPage<T> extends CommonPage implements
 	 */
 	protected void loadComplete(boolean success, int type) {
 		mIsLoading = false;
+
+        dismissProgress();
 
 		if (success) {
 			mListView.setVisibility(View.VISIBLE);
@@ -616,6 +639,8 @@ public abstract class MyListPage<T> extends CommonPage implements
 
 			@Override
 			public void run() {
+                mContents.clear();
+                requestIndex = 0;
 				loadData(MESSAGE_PULL_REFRESH);
 			}
 		}, 400);

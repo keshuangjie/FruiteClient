@@ -1,8 +1,14 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- 内容离屏幕左右的间距 -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- 内容离上下布局的间距 -->
     <dimen name="view_vertical_padding">8dp</dimen>
+
+    <!-- 字体上下之间的距离 -->
+    <dimen name="view_vertical_margin">5dp</dimen>
+
+    <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- 字体大小 dip -->
     <dimen name="text_font_size_smallest">12dip</dimen>

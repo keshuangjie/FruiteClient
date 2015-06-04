@@ -1,6 +1,7 @@
 package com.shopping.fruit.client.base.pagestack;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.sinaapp.whutec.util.common.Log;
 
@@ -263,7 +265,15 @@ public class BasePage extends Fragment implements Page {
      * 触发页面回退操作
      */
     public void goBack(Bundle args) {
+        hideSoftInput();
         getTask().goBack(args);
+
+    }
+
+    protected void hideSoftInput() {
+        Activity activity = getActivity();
+        ((InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     @Override

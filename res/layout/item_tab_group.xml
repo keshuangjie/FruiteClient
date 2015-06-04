@@ -4,8 +4,8 @@
     <com.shopping.fruit.client.widget.TabGroupView
         android:id="@+id/item_tab_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/home_bottom_bg" >
+        android:layout_height="48dip"
+        android:background="@color/custom_white" >
 
         <!-- tab布局 -->
         <LinearLayout
@@ -13,7 +13,6 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/home_bottom_tab_background"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -24,7 +23,7 @@
                 android:focusable="false"
                 android:padding="3dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/home_bottom_tab_shop" >
+                android:src="@drawable/icon_home_bottom_shop" >
             </ImageView>
         </LinearLayout>
         
@@ -34,7 +33,6 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/home_bottom_tab_background"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -45,7 +43,7 @@
                 android:focusable="false"
                 android:padding="3dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/home_bottom_tab_personal" >
+                android:src="@drawable/icon_home_bottom_order" >
             </ImageView>
         </LinearLayout>
         
@@ -55,7 +53,6 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/home_bottom_tab_background"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -66,7 +63,7 @@
                 android:focusable="false"
                 android:padding="3dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/home_bottom_tab_order" >
+                android:src="@drawable/icon_home_bottom_user" >
             </ImageView>
         </LinearLayout>
 

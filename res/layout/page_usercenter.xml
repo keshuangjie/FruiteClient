@@ -1,21 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@id/tv_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_font_size_normal"
-        android:text="keshuangjie"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@id/tv_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_font_size_normal"
-        android:text="1222222222222"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/view_vertical_padding"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/view_vertical_padding">
 
-</LinearLayout>
+            <TextView
+                style="@style/text_main_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="头像" />
+
+            <ImageView
+                android:id="@+id/im_head"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dip"
+                android:src="@drawable/ic_launcher" />
+
+        </RelativeLayout>
+
+        <View style="@style/list_divider" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/view_vertical_padding"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/view_vertical_padding">
+
+            <TextView
+                style="@style/text_main_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="账号" />
+
+
+            <TextView
+                android:id="@+id/tv_phone"
+                style="@style/text_main_title_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="18600891273" />
+
+        </RelativeLayout>
+
+        <View style="@style/list_divider" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/view_vertical_padding"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/view_vertical_padding">
+
+            <TextView
+                style="@style/text_main_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称" />
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/text_main_title_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="keshuangjie" />
+
+        </RelativeLayout>
+
+        <View style="@style/list_divider" />
+
+        <View
+            style="@style/list_divider"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            style="@style/text_main_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:paddingBottom="@dimen/view_vertical_padding"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/view_vertical_padding"
+            android:text="我的地址" />
+
+        <View style="@style/list_divider" />
+
+
+        <Button
+            android:id="@+id/btn_exit"
+            style="@style/button"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="60dip"
+            android:paddingRight="60dip"
+            android:text="退出登录"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+</ScrollView>

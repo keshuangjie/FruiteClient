@@ -4,58 +4,65 @@
     android:layout_height="wrap_content"
     android:padding="12dp">
 
-    <ImageView
-        android:id="@+id/im_head"
-        android:layout_width="50dip"
-        android:layout_height="50dip"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="5dip"
-        android:src="@drawable/ic_launcher"/>
-
     <TextView
-        android:id="@+id/tv_distance"
+        android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/text_main_title_small"
+        style="@style/text_main_title"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:textSize="@dimen/text_font_size_normal"
         android:singleLine="true"
         android:ellipsize="end"
-        android:text="500m"/>
+        android:text="100$"/>
 
     <TextView
-        android:id="@+id/tv_category"
+        android:id="@+id/tv_statu"
+        style="@style/text_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/text_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         android:singleLine="true"
         android:ellipsize="end"
-        android:text="苹果"/>
+        android:layout_below="@id/tv_price"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="4dip"
+        android:text="已完成"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="end"
+        style="@style/text_content"
+        android:layout_below="@id/tv_statu"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="4dip"
+        android:text="2015-04-26"/>
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/text_main_title"
-        android:layout_toRightOf="@id/im_head"
-        android:layout_toLeftOf="@id/tv_distance"
-        android:layout_marginBottom="10dip"
         android:singleLine="true"
         android:ellipsize="end"
+        style="@style/text_main_title"
+        android:layout_alignParentLeft="true"
+        android:layout_toRightOf="@id/tv_price"
+        android:layout_marginBottom="10dip"
         android:text="老王"/>
 
     <TextView
-        android:id="@+id/tv_description"
+        android:id="@+id/tv_skuIfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="end"
         style="@style/text_content"
-        android:layout_toRightOf="@id/im_head"
+        android:layout_alignParentLeft="true"
         android:layout_below="@id/tv_name"
-        android:maxLines="3"
-        android:singleLine="false"
+        android:layout_toLeftOf="@id/tv_time"
+        android:layout_alignTop="@id/tv_time"
         android:text="我的水果特别甜"/>
 
 </RelativeLayout>

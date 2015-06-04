@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shopping.fruit.client.R;
@@ -13,6 +14,7 @@ import com.shopping.fruit.client.common.CommonApi;
 import com.shopping.fruit.client.entity.Product;
 import com.shopping.fruit.client.shop.adapter.ProductAdapter;
 import com.shopping.fruit.client.util.Log;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -26,7 +28,7 @@ import java.util.ArrayList;
  */
 public class ProductListPage extends MyListPage<Product> {
 
-    private int salerId = 1;
+    private int salerId;
     private String shopName, shopDescription, shopLogo;
 
     @Override
@@ -35,7 +37,7 @@ public class ProductListPage extends MyListPage<Product> {
 
         Bundle bundle = getArguments();
         if(bundle != null){
-//            salerId = bundle.getInt("salerId");
+            salerId = bundle.getInt("salerId");
             shopName = bundle.getString("name");
             shopDescription = bundle.getString("description");
             shopLogo = bundle.getString("headImg");
@@ -47,6 +49,7 @@ public class ProductListPage extends MyListPage<Product> {
         View headView = LayoutInflater.from(getActivity()).inflate(R.layout.page_shopdetail_header, null);
         TextView tv_name = (TextView) headView.findViewById(R.id.tv_name);
         TextView tv_description = (TextView) headView.findViewById(R.id.tv_description);
+        ImageView im_head = (ImageView) headView.findViewById(R.id.im_head);
 
         tv_name.setText(shopName);
         tv_description.setText(shopDescription + "\n我的蔬菜特别新鲜\n我的肉是本地猪肉");

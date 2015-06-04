@@ -13,9 +13,28 @@ import java.util.List;
  * @author keshuangjie
  * @date 2015-3-18 11:52
  */
-public class ProgressDialogUtil {
+public class DialogUtil {
     static CommonProgressDialog mBMProgressDialog;
+    static CustomDialog mCustomDialog;
     static final int RUNNING_TASK_SIZE = 1;
+
+    public static void showCustomDialog(FragmentActivity fragActivity, String message,
+                                   CustomDialog.OnEventListener listener) {
+        dismiss();
+        if (isActivityRunning(fragActivity) && fragActivity.getSupportFragmentManager() != null) {
+            try {
+                mCustomDialog = CustomDialog.newInstance(message, listener);
+                mCustomDialog.show(fragActivity.getSupportFragmentManager(), "customDialog");
+                /*
+                 * 立即执行，因为调用show()后 可能会立即调用dismiss()
+                 * 使用executePendingTransactions(),在Page的OnViewCreated()中调用MProgressDialog.show()会引起
+                 * illegalstateexception recursive entry to execute pending transactions
+                 */
+                //          fragActivity.getSupportFragmentManager().executePendingTransactions();
+            } catch (Exception ex) {
+            }
+        }
+    }
 
     private static void showDialog(FragmentActivity fragActivity, int layoutResId, String title, String message,
                                    DialogInterface.OnCancelListener cancelListener) {
@@ -64,6 +83,13 @@ public class ProgressDialogUtil {
         mBMProgressDialog = null;
     }
 
+    public static void dismiss2() {
+        if (mCustomDialog != null && mCustomDialog.getFragmentManager() != null) {
+            mCustomDialog.dismiss();
+        }
+        mCustomDialog = null;
+    }
+
     private static boolean isActivityRunning(Activity activity) {
         if (activity == null || activity.isFinishing()) {
             return false;
@@ -82,7 +108,7 @@ public class ProgressDialogUtil {
                     }
                 }
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
             return false;
         }
