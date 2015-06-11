@@ -81,7 +81,8 @@ public abstract class AbsAdapter<T> extends BaseAdapter {
 		if (contents == null) {
 			contents = new ArrayList<T>();
 		}
-		mContent = contents;
+        mContent.clear();
+        mContent.addAll(contents);
 		notifyDataSetChanged();
 	}
 	

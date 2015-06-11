@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff7f7f7"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/login_edit_bg"
+        android:orientation="vertical"
+        android:padding="2dp" >
+
+        <RelativeLayout
+            android:id="@+id/user_info_activity_check_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_bg"
+            android:paddingBottom="12dip"
+            android:paddingLeft="16dip"
+            android:paddingRight="16dip"
+            android:paddingTop="16dip" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dip"
+                android:text="版本更新"
+                android:textColor="@color/normal_black_text_color"
+                android:textSize="@dimen/text_font_size_normal" />
+
+            <TextView
+                android:id="@+id/user_update_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:drawablePadding="5dp"
+                android:text=""
+                android:textColor="#ff4d4d4d"
+                android:textSize="@dimen/text_font_size_normal" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@color/normal_split_color" >
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/user_info_about_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_bg"
+            android:paddingBottom="14dip"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="14dip" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="关于果蔬到家"
+                android:textColor="@color/normal_black_text_color"
+                android:textSize="@dimen/text_font_size_normal" />
+
+            <TextView
+                android:id="@+id/user_info_activity_user_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:drawablePadding="5dp"
+                android:paddingRight="3dp"
+                android:textColor="@color/normal_black_text_color"
+                android:textSize="@dimen/text_font_size_normal" />
+        </RelativeLayout>
+        
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/user_info_activity_logout"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/user_logout_button_shape"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="退出登录"
+        android:textColor="@color/study_logout_font_color"
+        android:textSize="@dimen/text_font_size_normal" />
+
+</LinearLayout>

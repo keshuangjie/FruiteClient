@@ -70,6 +70,7 @@ public abstract class MyListPage<T> extends CommonPage implements
 	protected MoreView mMoreView;
 	protected View netErrorLayout;
 	protected ViewGroup noDataLayout;
+    protected ViewGroup noLoginLayout;
 
 	protected AbsAdapter<T> mAdapter;
 	private boolean isDestoryed = false;
@@ -134,7 +135,8 @@ public abstract class MyListPage<T> extends CommonPage implements
 				Log.i(TAG, "mHandler -> net error");
 				break;
             case MESSAGE_NOT_LOGIN:
-                goToLoginPage();
+                loadComplete(false, what);
+                showNoLoginLayout();
                 break;
 			default:
 				break;
@@ -241,7 +243,7 @@ public abstract class MyListPage<T> extends CommonPage implements
 	protected void loadData(int type) {
 		if (mIsLoading) {
 			loadComplete(false, type);
-			// return;
+//			return;
 		}
 		// showNoDataView(false);
 		showListView();
@@ -274,7 +276,7 @@ public abstract class MyListPage<T> extends CommonPage implements
         if (!url.contains("?")) {
             url += "?";
         }
-        String finalUrl = url + "&index=" + requestIndex;
+        String finalUrl = url + "&index=" + getLastItemIndex();
         return finalUrl;
 
     }
@@ -556,6 +558,23 @@ public abstract class MyListPage<T> extends CommonPage implements
         noDataLayout.setVisibility(View.VISIBLE);
 	}
 
+    protected void showNoLoginLayout() {
+        mListView.setVisibility(View.GONE);
+        if (noLoginLayout == null) {
+            noLoginLayout = (ViewGroup) findViewById(R.id.rl_nologin);
+            View noLoginView = LayoutInflater.from(getActivity()).inflate(
+                    R.layout.item_nologin, null);
+            noLoginView.findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goToLoginPage();
+                }
+            });
+            noLoginLayout.addView(noLoginView);
+        }
+        noLoginLayout.setVisibility(View.VISIBLE);
+    }
+
 	/**
 	 * @param type
 	 *            下拉刷新/加载更多 显示没有数据提示
@@ -594,8 +613,11 @@ public abstract class MyListPage<T> extends CommonPage implements
 			netErrorLayout.setVisibility(View.GONE);
 		}
 		if (noDataLayout != null) {
-			noDataLayout.setVisibility(View.GONE);
-		}
+            noDataLayout.setVisibility(View.GONE);
+        }
+        if (noLoginLayout != null) {
+            noLoginLayout.setVisibility(View.GONE);
+        }
 		if(mListView != null){
 			mListView.setVisibility(View.VISIBLE);
 		}
@@ -673,6 +695,13 @@ public abstract class MyListPage<T> extends CommonPage implements
 	protected boolean isPullRefreshEnable() {
 		return true;
 	}
+
+    protected int getLastItemIndex() {
+        if (mContents == null || mContents.size() == 0) {
+            return 0;
+        }
+        return mContents.size() - 1;
+    }
 
 	protected T getLastItem() {
 		if (mContents != null && mContents.size() > 0) {

@@ -11,6 +11,7 @@ import com.shopping.fruit.client.R;
 import com.shopping.fruit.client.base.AbsAdapter;
 import com.shopping.fruit.client.base.MyListPage;
 import com.shopping.fruit.client.common.CommonApi;
+import com.shopping.fruit.client.data.DataCache;
 import com.shopping.fruit.client.entity.Product;
 import com.shopping.fruit.client.shop.adapter.ProductAdapter;
 import com.shopping.fruit.client.util.Log;
@@ -41,6 +42,27 @@ public class ProductListPage extends MyListPage<Product> {
             shopName = bundle.getString("name");
             shopDescription = bundle.getString("description");
             shopLogo = bundle.getString("headImg");
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdapter != null) {
+            ProductAdapter adapter = (ProductAdapter) mAdapter;
+            ArrayList<Product> listCache = DataCache.getInstance().getProductCache(salerId);
+            Log.i("kshj", "ProductListPage -> onResume() -> listCache size :" + (listCache == null ? null : listCache.size()));
+            adapter.setSelectedProducts(listCache);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mAdapter != null) {
+            ArrayList<Product> listCache = ((ProductAdapter) mAdapter).getSelectedProducts();
+            Log.i("kshj", "ProductListPage -> onPause() -> listCache size :" + (listCache == null ? null : listCache.size()));
+            DataCache.getInstance().addProductCache(salerId, listCache);
         }
     }
 

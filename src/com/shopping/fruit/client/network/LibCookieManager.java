@@ -37,6 +37,10 @@ public final class LibCookieManager {
   public static final String KEYWORD = "Set-Cookie";
   private static String COOKIE_DOMAIN_URL = getCurrentDomain();
 
+    private static String mCurrentCookie;
+
+    private static boolean mIsCookieChange = false;
+
   /**
    * HACK(junfengli): When api < 14, webview will set cookie domain like yunyun.com. However, on the
    * other side, webview will set cookie domain like .yunyun.com. We should always check this while
@@ -162,11 +166,17 @@ public final class LibCookieManager {
     return true;
   }
 
+    public static boolean isCookieChange() {
+        return mIsCookieChange;
+    }
+
   /**
    * Clear all cookies stored locally.
    */
   public static void clearCookie() {
     getYrCookieManager().removeAllCookie();
+      mCurrentCookie = "";
+      mIsCookieChange = true;
   }
 
   public static String getCookieVauleFromCookieStringByKey(String key, String cookieStr) {
@@ -233,6 +243,10 @@ public final class LibCookieManager {
   public static void setCookieValue(String value) {
     getYrCookieManager().setCookie(COOKIE_DOMAIN_URL, value);
     Log.i("setCookieValue() cookie = ", value);
+      if (!value.equals(mCurrentCookie)) {
+          mCurrentCookie = value;
+           mIsCookieChange = true;
+      }
     synchCookies();
   }
 

@@ -20,5 +20,11 @@
     <color name="custom_hint">#ffc4c7cc</color>
 
     <color name="list_divider">#c0c0c0</color>
+
+    <color name="normal_bg_default_color">#f7f7f7</color>
+    <color name="pressed_bg_default_color">#cccccc</color>
+
+    <color name="study_logout_bg_color">#ff7a5b</color>
+    <color name="study_logout_font_color">#fff</color>
     
 </resources>

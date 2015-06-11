@@ -17,5 +17,13 @@
         android:visibility="gone"
         android:gravity="center"
         android:orientation="vertical"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_nologin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="vertical"/>
     
 </FrameLayout>

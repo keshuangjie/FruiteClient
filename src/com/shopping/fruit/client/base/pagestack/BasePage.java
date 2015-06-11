@@ -271,9 +271,8 @@ public class BasePage extends Fragment implements Page {
     }
 
     protected void hideSoftInput() {
-        Activity activity = getActivity();
-        ((InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-                activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override

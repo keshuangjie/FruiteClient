@@ -36,6 +36,8 @@ public class AddrssListPage extends MyListPage<AddressInfo> {
 
     AddressListController mController;
 
+    private Bundle mBundleFromBack;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,34 @@ public class AddrssListPage extends MyListPage<AddressInfo> {
         mController.initData(getPageArguments());
 
         setTitle("我的地址");
+        setDisplayHomeAsUpEnabled(true);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mBundleFromBack != null) {
+            int eventId = mBundleFromBack.getInt(KEY_BACK);
+            final AddressInfo info = mBundleFromBack.getParcelable("addressInfo");
+            if (info == null) {
+                return;
+            }
+            switch (eventId) {
+                case EVENT_ADD:
+                    addAddress(info);
+                    break;
+                case EVENT_DELETE:
+                    deleteAddress(info);
+                    break;
+                case EVENT_UPDATE:
+                    editAddress(info);
+                    break;
+            }
+
+            mBundleFromBack = null;
+        }
     }
 
     @Override
@@ -112,28 +141,13 @@ public class AddrssListPage extends MyListPage<AddressInfo> {
 
     @Override
     public void onBackFromOtherPage(Bundle args) {
-        if (args != null) {
-            int eventId = args.getInt(KEY_BACK);
-            final AddressInfo info = args.getParcelable("addressInfo");
-            if (info == null) {
-                return;
-            }
-            switch (eventId) {
-                case EVENT_ADD:
-                    addAddress(info);
-                    break;
-                case EVENT_DELETE:
-                    deleteAddress(info);
-                    break;
-                case EVENT_UPDATE:
-                    editAddress(info);
-                    break;
-            }
-        }
+        mBundleFromBack = args;
     }
 
     private void editAddress(AddressInfo info) {
-        mContents = mAdapter.getContents();
+        if (mContents == null) {
+            mContents = new ArrayList<AddressInfo>();
+        }
         for (AddressInfo address : mContents) {
             if (address.id == info.id) {
                 address.name = info.name;
@@ -147,13 +161,17 @@ public class AddrssListPage extends MyListPage<AddressInfo> {
     }
 
     private void addAddress(AddressInfo info) {
-        mContents = mAdapter.getContents();
+        if (mContents == null) {
+            mContents = new ArrayList<AddressInfo>();
+        }
         mContents.add(info);
         mAdapter.setContents(mContents);
     }
 
     private void deleteAddress(AddressInfo info) {
-        mContents = mAdapter.getContents();
+        if (mContents == null) {
+            mContents = new ArrayList<AddressInfo>();
+        }
         for (AddressInfo address : mContents) {
             if (address.id == info.id) {
                 mContents.remove(address);

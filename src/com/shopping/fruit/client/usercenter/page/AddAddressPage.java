@@ -1,7 +1,9 @@
 package com.shopping.fruit.client.usercenter.page;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,11 +25,14 @@ import com.shopping.fruit.client.common.CommonApi;
 import com.shopping.fruit.client.entity.ResultEntity;
 import com.shopping.fruit.client.network.RequestWithCookie;
 import com.shopping.fruit.client.usercenter.entity.AddressInfo;
+import com.shopping.fruit.client.util.Log;
 import com.shopping.fruit.client.widget.CustomDialog;
 import com.shopping.fruit.client.widget.DialogUtil;
+import com.sinaapp.whutec.util.common.StringUtil;
 import com.sinaapp.whutec.util.common.ToastUtil;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  * 新增送货地址
@@ -37,6 +43,7 @@ import org.json.JSONObject;
 public class AddAddressPage extends CommonPage {
 
     private AutoCompleteTextView tv_name, tv_phone, tv_addr, tv_addr_detail;
+    private ImageView iv_name_del, iv_phone_del, iv_userAdress_del;
 
     private boolean mIsEdit = false;
     private AddressInfo mInfo;
@@ -84,11 +91,102 @@ public class AddAddressPage extends CommonPage {
         tv_addr = (AutoCompleteTextView) view.findViewById(R.id.address_useraddress);
         tv_addr_detail = (AutoCompleteTextView) view.findViewById(R.id.detail_useraddress);
 
+        iv_name_del = (ImageView) view.findViewById(R.id.address_username_del);
+        iv_phone_del = (ImageView) view.findViewById(R.id.address_userphone_del);
+        iv_userAdress_del = (ImageView) view.findViewById(R.id.address_useraddress_del);
+
+        tv_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s.toString())) {
+                    iv_name_del.setVisibility(View.GONE);
+                } else {
+                    iv_name_del.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        tv_phone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s.toString())) {
+                    iv_phone_del.setVisibility(View.GONE);
+                } else {
+                    iv_phone_del.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        tv_addr_detail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s.toString())) {
+                    iv_userAdress_del.setVisibility(View.GONE);
+                } else {
+                    iv_userAdress_del.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
+        iv_name_del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_name.setText("");
+            }
+        });
+        iv_phone_del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_phone.setText("");
+            }
+        });
+        iv_userAdress_del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_addr_detail.setText("");
+            }
+        });
+
         if (mIsEdit && mInfo != null) {
             tv_name.setText(mInfo.name);
             tv_phone.setText(mInfo.phone);
             tv_addr.setText(mInfo.address);
             tv_addr_detail.setText(mInfo.detail);
+
+            iv_name_del.setVisibility(View.VISIBLE);
+            iv_phone_del.setVisibility(View.VISIBLE);
+            iv_userAdress_del.setVisibility(View.VISIBLE);
 
             Button btn_del = (Button) view.findViewById(R.id.btn_del);
             btn_del.setVisibility(View.VISIBLE);
@@ -154,6 +252,11 @@ public class AddAddressPage extends CommonPage {
 
         if (TextUtils.isEmpty(phone)) {
             ToastUtil.getInstance().toast("联系方式不能为空");
+            return;
+        }
+
+        if (!StringUtil.isMobileNumber(phone)) {
+            ToastUtil.getInstance().toast("手机格式不正确");
             return;
         }
 
@@ -241,6 +344,7 @@ public class AddAddressPage extends CommonPage {
         builder.append(mInfo.detail);
         builder.append("&telephone=");
         builder.append(mInfo.phone);
+        Log.i("kshj", "AddAddressPage -> buildUrl() -> url :" + builder.toString());
         return builder.toString();
     }
 

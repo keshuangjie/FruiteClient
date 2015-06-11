@@ -3,6 +3,7 @@ package com.shopping.fruit.client.order.page;
 import com.shopping.fruit.client.base.AbsAdapter;
 import com.shopping.fruit.client.base.MyListPage;
 import com.shopping.fruit.client.common.CommonApi;
+import com.shopping.fruit.client.network.LibCookieManager;
 import com.shopping.fruit.client.order.adapter.OrderListAdapter;
 import com.shopping.fruit.client.order.entity.Order;
 
@@ -18,9 +19,17 @@ import java.util.ArrayList;
  */
 public class OrderListPage extends MyListPage<Order> {
 
+    private boolean mIsFirst = true;
+
     @Override
     public void onResume() {
         super.onResume();
+
+        if (!mIsFirst && LibCookieManager.isCookieChange()) {
+            reInitData();
+        }
+
+        mIsFirst = false;
     }
 
     @Override

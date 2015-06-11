@@ -10,6 +10,7 @@ import com.shopping.fruit.client.R;
 import com.shopping.fruit.client.base.AbsAdapter;
 import com.shopping.fruit.client.entity.Product;
 import com.shopping.fruit.client.event.ShoppintCartEvent;
+import com.shopping.fruit.client.util.Log;
 import com.shopping.fruit.client.widget.PlusView;
 import com.squareup.picasso.Picasso;
 
@@ -53,32 +54,59 @@ public class ProductAdapter extends AbsAdapter<Product> implements PlusView.OnCh
             PlusView plusView = ViewHolder.get(convertView, R.id.plusView);
             plusView.setTag(item);
             plusView.setOnChangeListener(this);
+            plusView.updateView(item.selectedCount);
         }
 
         return convertView;
     }
 
     @Override
-    public void onPlus(View view, int count) {
-        Product item = (Product) view.getTag();
-        if(item == null){
-            return;
+    public void setContents(ArrayList<Product> contents) {
+        if (contents == null) {
+            contents = new ArrayList<Product>();
         }
-        item.selectedCount = count;
-        changeSelecteProducts(item);
+        mContent = contents;
+        updateSelectedProduct();
+        notifyDataSetChanged();
     }
 
     @Override
-    public void onReduce(View view, int count) {
+    public void onChange(View view, int count) {
         Product item = (Product) view.getTag();
         if(item == null){
             return;
         }
         item.selectedCount = count;
-        changeSelecteProducts(item);
+        changeSelectedProducts(item);
     }
 
-    private void changeSelecteProducts(Product item){
+    public void updateSelectedProduct() {
+        if (mSelectedProducets == null || mSelectedProducets.size() <=0){
+            return;
+        }
+        if (mContent == null || mContent.size() <= 0) {
+            return;
+        }
+        Log.i("kshj", "ProductAdapter -> updateSelectedProducts() ");
+
+        for (Product p1 : mContent) {
+            for (Product p2 : mSelectedProducets) {
+                if (p1.id == p2.id) {
+                    p1.selectedCount = p2.selectedCount;
+                }
+            }
+        }
+    }
+
+    public void setSelectedProducts(ArrayList<Product> products) {
+        this.mSelectedProducets = products;
+    }
+
+    public ArrayList<Product> getSelectedProducts() {
+        return mSelectedProducets;
+    }
+
+    private void changeSelectedProducts(Product item){
         if(mSelectedProducets == null){
             mSelectedProducets = new ArrayList<Product>();
         }
